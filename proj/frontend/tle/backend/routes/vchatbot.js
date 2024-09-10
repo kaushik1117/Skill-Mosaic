@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+require('dotenv').config();
 
 // Initialize the Generative AI client
-const genAI = new GoogleGenerativeAI('AIzaSyCUkLNSwx-145fQ0S5BDou2AwJYjvPRW5g');
+const genAI = new GoogleGenerativeAI(process.env.Gemini_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 // API Route for handling video chatbot responses with context

@@ -6,6 +6,7 @@ const pdfParse = require('pdf-parse');
 const fs = require('fs');
 
 const upload = multer({ dest: 'uploads/' });
+require('dotenv').config();
 
 router.post("/generateExam", upload.single('file'), async (req, res) => {
     const { examName, examDuration } = req.body;
@@ -20,7 +21,7 @@ router.post("/generateExam", upload.single('file'), async (req, res) => {
         const pdfData = await pdfParse(fileBuffer);
         const examText = pdfData.text; 
 
-        const genAI = new GoogleGenerativeAI('AIzaSyCUkLNSwx-145fQ0S5BDou2AwJYjvPRW5g');
+        const genAI = new GoogleGenerativeAI(process.env.Gemini_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
         const prompt = `Generate question and answers for a ${examDuration}-minute exam based on the following text: "${examText}". The answers should be detailed. Provide the response in JSON format with keys: "question", "answer", "useranswer", and "score".`;

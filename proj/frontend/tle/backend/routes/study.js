@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+require('dotenv').config();
 
 router.post("/studyPlanner", async (req, res) => {
     const {studyPlan,timeDuration} = req.body;
     try{
-        const genAI = new GoogleGenerativeAI('AIzaSyCUkLNSwx-145fQ0S5BDou2AwJYjvPRW5g');
+        const genAI = new GoogleGenerativeAI(process.env.Gemini_KEY);
         const model = genAI.getGenerativeModel({model : "gemini-pro"});
 //      const prompt = `Generate study plan for the following text: ${studyPlan} for time duration${timeDuration}.No need of materials, resources or other. Give day wise with topics. The study plan should be in JSON format. Give without extra spaces, new lines or special characters. Give each day's plan in a seperate line. If there are more days, then give as a range of days for few. Keys for each day should be as a number`;
         const prompt = `Generate study plan for the following text: ${studyPlan} for time duration${timeDuration}. Give day wise topics. If there are more days, give as a range of days for few. The response should be in JSON format.

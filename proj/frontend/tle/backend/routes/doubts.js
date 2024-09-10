@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
+require('dotenv').config();
 router.post("/solveDoubt", async (req, res) => {
     const {doubt} = req.body;
     try{
-        const genAI = new GoogleGenerativeAI('AIzaSyCUkLNSwx-145fQ0S5BDou2AwJYjvPRW5g');
+        const genAI = new GoogleGenerativeAI(process.env.Gemini_KEY);
         const model = genAI.getGenerativeModel({model : "gemini-1.5-pro"});
         const prompt = `I have this doubt : ${doubt}. Can you help me with this? Give response as a text.`;
 
