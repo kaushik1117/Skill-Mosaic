@@ -9,11 +9,15 @@ const studyRoutes = require('../backend/routes/study.js');
 const doubtRoutes = require('../backend/routes/doubts.js');
 const tutorRoutes = require('../backend/routes/tutor.js');
 const chatRoutes = require('../backend/routes/chat.js');
+require('dotenv').config();
+
+const MongoClient = require('mongodb').MongoClient;
+const mongoUrl = process.env.Mongo_URL;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://Tvarun2014:varunreddy2014@cluster0.cc98p65.mongodb.net/TLE')
+mongoose.connect(mongoUrl)
     .then(() => {
         console.log('Connected to MongoDB');
     })
